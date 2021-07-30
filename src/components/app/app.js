@@ -8,11 +8,18 @@ import CharDetails from '../charDetails';
 export default class App extends Component {
 	state = {
 		randomVisible: true,
+		selectedChar: null,
 	};
 
 	toggle = () => {
+		this.setState((state) => {
+			return { randomVisible: !state.randomVisible };
+		});
+	};
+
+	onCharSelected = (id) => {
 		this.setState({
-			randomVisible: !this.state.randomVisible,
+			selectedChar: id,
 		});
 	};
 	render() {
@@ -36,10 +43,10 @@ export default class App extends Component {
 					</Row>
 					<Row>
 						<Col md="6">
-							<ItemList />
+							<ItemList onCharSelected={this.onCharSelected} />
 						</Col>
 						<Col md="6">
-							<CharDetails />
+							<CharDetails charId={this.state.selectedChar} />
 						</Col>
 					</Row>
 				</Container>
